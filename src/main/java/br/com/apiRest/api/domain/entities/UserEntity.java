@@ -1,4 +1,4 @@
-package br.com.apiRest.api.domain;
+package br.com.apiRest.api.domain.entities;
 
 import lombok.*;
 
@@ -8,7 +8,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "tb_user")
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
