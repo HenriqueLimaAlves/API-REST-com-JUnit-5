@@ -2,6 +2,7 @@ package br.com.apiRest.api.usecase.user;
 
 import br.com.apiRest.api.domain.entities.UserEntity;
 import br.com.apiRest.api.domain.repositories.UserRepository;
+import br.com.apiRest.api.usecase.exceptions.ObjectNotFoundException;
 import br.com.apiRest.api.usecase.user.port.UserPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,6 @@ public class UserService implements UserPort {
     @Override
     public UserEntity findById(Integer id) {
         Optional<UserEntity> obj = userRepository.findById(id);
-        return obj.orElse(null);
+        return obj.orElseThrow(()-> new ObjectNotFoundException("Objeto não encontrado"));
     }
 }
