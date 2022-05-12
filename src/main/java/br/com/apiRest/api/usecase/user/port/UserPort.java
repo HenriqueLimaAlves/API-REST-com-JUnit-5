@@ -11,5 +11,6 @@ public interface UserPort {
     UserEntity findById(Integer id);
     List<UserEntity> findAll();
     UserEntity create(UserDTO obj);
+    UserEntity update(UserDTO obj);
 
 }

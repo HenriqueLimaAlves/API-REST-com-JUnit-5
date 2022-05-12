@@ -38,9 +38,15 @@ public class UserService implements UserPort {
         return userRepository.save(modelMapper.map(obj, UserEntity.class));
     }
 
+    @Override
+    public UserEntity update(UserDTO obj) {
+        findByEmail(obj);
+        return userRepository.save(modelMapper.map(obj, UserEntity.class));
+    }
+
     private void findByEmail(UserDTO obj){
         Optional<UserEntity> userEntity = userRepository.findByEmail(obj.getEmail());
-        if(userEntity.isPresent()){
+        if(userEntity.isPresent() && !userEntity.get().getId().equals(obj.getId())){
             throw new DataIntegratyViolationException("E-mail já cadastrado no sistema");
         }
     }
