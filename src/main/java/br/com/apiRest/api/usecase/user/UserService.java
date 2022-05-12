@@ -3,6 +3,7 @@ package br.com.apiRest.api.usecase.user;
 import br.com.apiRest.api.domain.dto.UserDTO;
 import br.com.apiRest.api.domain.entities.UserEntity;
 import br.com.apiRest.api.domain.repositories.UserRepository;
+import br.com.apiRest.api.usecase.exceptions.DataIntegratyViolationException;
 import br.com.apiRest.api.usecase.exceptions.ObjectNotFoundException;
 import br.com.apiRest.api.usecase.user.port.UserPort;
 import org.modelmapper.ModelMapper;
@@ -33,6 +34,14 @@ public class UserService implements UserPort {
 
     @Override
     public UserEntity create(UserDTO obj) {
+        findByEmail(obj);
         return userRepository.save(modelMapper.map(obj, UserEntity.class));
+    }
+
+    private void findByEmail(UserDTO obj){
+        Optional<UserEntity> userEntity = userRepository.findByEmail(obj.getEmail());
+        if(userEntity.isPresent()){
+            throw new DataIntegratyViolationException("E-mail já cadastrado no sistema");
+        }
     }
 }
