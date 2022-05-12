@@ -12,5 +12,6 @@ public interface UserPort {
     List<UserEntity> findAll();
     UserEntity create(UserDTO obj);
     UserEntity update(UserDTO obj);
+    void delete(Integer id);
 
 }

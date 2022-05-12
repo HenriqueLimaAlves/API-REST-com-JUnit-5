@@ -44,6 +44,12 @@ public class UserService implements UserPort {
         return userRepository.save(modelMapper.map(obj, UserEntity.class));
     }
 
+    @Override
+    public void delete(Integer id) {
+        findById(id);
+        userRepository.deleteById(id);
+    }
+
     private void findByEmail(UserDTO obj){
         Optional<UserEntity> userEntity = userRepository.findByEmail(obj.getEmail());
         if(userEntity.isPresent() && !userEntity.get().getId().equals(obj.getId())){
